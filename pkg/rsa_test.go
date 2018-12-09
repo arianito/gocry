@@ -11,7 +11,7 @@ func Benchmark_Rsa_Key_Generation(b *testing.B) {
 func Benchmark_Rsa_Encode_Decode(b *testing.B) {
 	bob := RsaKeyPair()
 	alice := RsaKeyPair()
-	myMessage := "Hello World!"
+	myMessage := "Lorem ipsum"
 
 	for i := 0; i < b.N; i++ {
 		enc, _ := RsaEncode([]byte(myMessage), bob.PrivateKey, alice.PublicKey)

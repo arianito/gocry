@@ -45,6 +45,53 @@ base64encode(message: string, cipher: string): string;
 base64decode(encoded: string, cipher: string): string;
 </script>
 ```
+or if you have webpack environment, you can use obfuscate plugin,
+and use scramble function to generate a js cipher for you
+```
+cipher := cry.Base64Cipher()
+cry.Base64Scrabmle(cipher)
+// output
+// const _IHRIu = "jFfX0"
+// const _BwIUb = "Ghun2"
+// const _nAC3q = "4EmTI"
+// const _qZEwV = "QV8Or"
+// const _PXLsk = "PlxS9"
+// const _aQ2Tr = "YKtep"
+// const _k7134 = "vW6Mo"
+// const _3dTud = "yUDJ."
+// const _NODaV = "NcdL1"
+// const _11KEO = "7z3Bb"
+// const _bPnwW = "sZ_-i"
+// const _3lwMI = "qakwH"
+// const _6ZJMq = "ACg5R"
+// const _ITLzh = _IHRIu + _BwIUb + _nAC3q + _qZEwV + _PXLsk + _aQ2Tr + _k7134 + _3dTud + _NODaV + _11KEO + _bPnwW + _3lwMI + _6ZJMq
+// _ITLzh is your cipher
+
+``` 
+and here is how after obfuscation:
+```javascript
+var _0x3cc7=["iterator","xECgk","wrzSo","kGfFo","vlpqU","label","ops",
+"mkkFR","nCCaS","RFWbO","trys","sObIo","SohCv","isSynced","diff","Yntqv",
+"_instance","sync","oILbb","CgNDw","now","sent","cJcuW","QaNcH","schedule",
+"LfTQk","zMswW","Time","UdjVA","iKURW","tVvsi","2|3|4|1|0","extend","merge",
+"isCancel","all","spread","ICpDd","XjiuN","Okgcq","ZmJOn","readFloatLE","JGtcS",
+"3|4|0|8|2|5|6|1|7","vnYki","defaults","request","qkIOg","method","sUeVo","EfsUQ",
+"MprnO","fulfilled","response","rejected","xeyQI","sRhOp","HuXXu",
+"clearTimeout has not been defined","browser","setTimeout has not been defined","nQMak",
+"CnDTK","vMwiQ","HmHyn","xiQoi","qtnzq","vKImk","nextTick","SpOfT","xNDeR","fmYOi","NxLIq",
+"fun","array","run","title","zYULS","env","argv","version","addListener","once","removeListener",
+"removeAllListeners","prependListener","prependOnceListener","listeners","binding",
+"process.binding is not supported","cwd","qRMum","umask","XhCDl","HKvUM","wvFKT","ltlpC",
+"PKVzC","config","validateStatus","zDUKB","cxFMr","KpGDX","Request failed with status code ",
+"4|2|1|3|0","DAlUW","code","XtWMb","dgNdA","iwIzp","PmQZh","xZOoB","toISOString","isObject","AaVqe",
+"elvIG","gVtOg","VpQeO","set-cookie","age","authorization","content-length","expires","proxy-authorization",
+"retry-after","user-agent","yRNpC","zasjE","ADWAI","fGinw","FrvQC","ImnUj","tvChl","YDxVD","fSNll","asYFk","OJxvQ",
+"ZZTqP","from","last-modified","NBXAh","max-forwards","vbDLF","referer","BQCSK","href","EPFDk","isStandardBrowserEnv",
+"gkFjw","userAgent","lpZvp","protocol","hostname","port","isString","iKxRn","TMGQv","host",...];
+```
+
+well now, it's just harder to find your cipher, but thief can
+
 
 ## WHATS IN THE BOX
 ```go
@@ -65,6 +112,8 @@ func cry.AesDecode(encoded []byte, pass string) ([]byte, error){}
 // generates a new random cipher for base64 encodings
 // use []byte("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_.") for standard b64 encoding.
 func cry.Base64Cipher() []byte{}
+// obfuscate cipher to build in 
+func Base64Scrabmle(data []byte) string;
 func cry.Base64Encode(message []byte, cipher []byte) []byte{}
 func cry.Base64Decode(encoded []byte, cipher []byte) ([]byte, error){}
 

@@ -16,6 +16,7 @@ func main() {
 	// make sure you share this cipher with other client.
 	cipher := cry.Base64Cipher()
 	fmt.Println("Cipher: ", string(cipher))
+	fmt.Println(cry.Base64Scrabmle(cipher))
 
 	// we have a message and we want to send it for someone!
 	myMessage := "Hello World!"

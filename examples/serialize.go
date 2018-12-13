@@ -31,7 +31,7 @@ func main() {
 	fmt.Println("Message: ", bobMessage)
 
 	// first we have to serialize bob's message
-	serialized, err := cry.Serialize(bobMessage)
+	serialized, err := cry.GobEncode(bobMessage)
 
 	if err != nil {
 		log.Fatal("we cant serialize this message due to ", err)
@@ -49,7 +49,7 @@ func main() {
 	}
 	// here we got the message, we have to deserialize it
 	deserialized := new(SomeMessage)
-	err = cry.Deserialize(dec, deserialized)
+	err = cry.GobDecode(dec, deserialized)
 
 	if err != nil {
 		log.Fatal(err)

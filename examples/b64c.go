@@ -5,7 +5,6 @@ package main
 import (
 	"github.com/xeuus/gocry/pkg"
 	"fmt"
-	"log"
 )
 
 func main() {
@@ -22,18 +21,20 @@ func main() {
 	myMessage := "Hello World!"
 	fmt.Println("Message: ", myMessage)
 
+
+	// for performance, set cipher once
+	cry.Base64Set(cipher)
+
+
 	// first encrypt it, this method takes an []byte array
 	// so message could be a blob of data, whatever
-	enc := cry.Base64Encode([]byte(myMessage), cipher)
+	enc := cry.Base64Encode([]byte(myMessage))
 
 	fmt.Println("Encoded: ", string(enc))
 	// assume we have received a message from other client,
 	// which we know it's encrypted using the same cipher,
 	// we just gonna decrypt it
-	dec, err := cry.Base64Decode(enc, cipher)
-	if err != nil {
-		log.Fatal(err)
-	}
+	dec := cry.Base64Decode(enc)
 
 	// here we get our message back.
 	fmt.Println("Decoded: ", string(dec))

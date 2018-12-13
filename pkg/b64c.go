@@ -6,11 +6,10 @@ package cry
 import "C"
 import (
 	"unsafe"
-	"errors"
 	"bytes"
 )
 
-const b64cipher = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_."
+const b64cipher = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_="
 
 func Base64Cipher() []byte {
 	data := make([]byte, 65)
@@ -28,7 +27,7 @@ func Base64Scrabmle(data []byte) string {
 	b := new(bytes.Buffer)
 	b.WriteString("const _")
 	b.WriteString(RandomString(5))
-	b.WriteString( " = ")
+	b.WriteString(" = ")
 	i := 0
 	j := 0
 
@@ -64,32 +63,39 @@ func Base64Scrabmle(data []byte) string {
 	return string(a.Bytes())
 }
 
-func Base64Encode(message []byte, cipher []byte) []byte {
+
+func Base64Set(cipher []byte) bool {
+	return C.set_cipher((*C.char)(unsafe.Pointer(&cipher[0]))) != 0
+}
+
+func Base64Encode(message []byte) []byte {
 	n := len(message)
-	op := make([]byte, (n+2)/3*4)
+	olen := (n + 2) / 3 * 4
+	op := make([]byte, olen)
 	C.base64_encode(
 		(*C.char)(unsafe.Pointer(&message[0])),
 		C.int(n),
-		(*C.char)(unsafe.Pointer(&cipher[0])),
 		(*C.char)(unsafe.Pointer(&op[0])),
+		C.int(olen),
 	)
 	return op
 }
 
-func Base64Decode(encoded []byte, cipher []byte) ([]byte, error) {
+func Base64Decode(encoded []byte) []byte {
 	n := len(encoded)
-	op := make([]byte, n/4*3)
+	olen := n / 4 * 3
+	op := make([]byte, olen)
 
 	result := C.base64_decode(
 		(*C.char)(unsafe.Pointer(&encoded[0])),
 		(C.int)(n),
-		(*C.char)(unsafe.Pointer(&cipher[0])),
 		(*C.char)(unsafe.Pointer(&op[0])),
+		C.int(olen),
 	)
 
 	if result == 0 {
-		return nil, errors.New("something went wrong")
+		return nil
 	}
 
-	return op, nil
+	return op
 }

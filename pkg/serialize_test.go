@@ -11,15 +11,27 @@ type SomeStruct struct {
 
 
 
-func Benchmark_Serialize_Deserialize(b *testing.B) {
+func Benchmark_Gob(b *testing.B) {
 	temp := &SomeStruct{
 		Field1: "Lorem ipsum",
 		Field2: 12423,
 	}
 	for i := 0; i < b.N; i++ {
-		data, _ := Serialize(temp)
-
+		data, _ := GobEncode(temp)
 		op := new(SomeStruct)
-		Deserialize(data, op)
+		GobDecode(data, op)
+	}
+}
+
+
+func Benchmark_Json(b *testing.B) {
+	temp := &SomeStruct{
+		Field1: "Lorem ipsum",
+		Field2: 12423,
+	}
+	for i := 0; i < b.N; i++ {
+		data, _ := JsonEncode(temp)
+		op := new(SomeStruct)
+		JsonDecode(data, op)
 	}
 }

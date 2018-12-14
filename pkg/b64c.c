@@ -9,6 +9,9 @@ int set_cipher(const char* c){
     }
     return 1;
 }
+char get_pad() {
+	return cf[64];
+}
 
 int shuffle(char *a, int len) {
 	if (len <= 1)
@@ -49,10 +52,6 @@ int base64_encode(const char* ms, int len, char* op, int olen){
 
 int base64_decode(const char* ms, int len, char* op, int olen){
 	unsigned char pad = cf[64];
-	if (ms[len-1] == pad)
-		olen--;
-	if (ms[len-2] == pad)
-		olen--;
     if (len % 4 != 0) return 0;
 	unsigned int a, b, c, d, e;
     for (int i = 0, j = 0; i < len;) {

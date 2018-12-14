@@ -84,6 +84,14 @@ func Base64Encode(message []byte) []byte {
 func Base64Decode(encoded []byte) []byte {
 	n := len(encoded)
 	olen := n / 4 * 3
+
+	pad := byte(C.get_pad())
+	if encoded[n-1] == pad {
+		olen--
+	}
+	if encoded[n-2] == pad {
+		olen--
+	}
 	op := make([]byte, olen)
 
 	result := C.base64_decode(

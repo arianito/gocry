@@ -12,6 +12,7 @@ static char dec[256];
 
 
 int set_cipher(const char* c);
+char get_pad();
 
 int shuffle(char *a, int len);
 int base64_encode(const char* ms, int len, char* op, int olen);
